@@ -93,4 +93,22 @@ login: fly
 	@$(FLY) -t $(TARGET) login -c $(URL)
 # login
 
+# Pipelines
+
+define run
+	@echo "Running pipeline: $(1)"
+	$(FLY) -t $(TARGET) set-pipeline -n -p $(1) -c $(PIPELINES)/$(2)/concourse.yml
+	$(FLY) -t $(TARGET) unpause-pipeline -p $(1)
+endef
+
+pipelines: hello-world navi
+
+hello-world: login
+	$(call run,hello-world,00_hello-world)
+# hello_world
+
+navi: login
+	$(call run,navi,01_navi)
+# navi
+
 # Makefile
