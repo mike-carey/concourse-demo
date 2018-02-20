@@ -1,0 +1,6 @@
+[submodule ".submodules/concourse-docker"]
+	path = .submodules/concourse-docker
+	url = https://github.com/concourse/concourse-docker.git
+[submodule ".submodules/bash-logger"]
+	path = .submodules/bash-logger
+	url = https://github.com/deanrather/bash-logger.git
