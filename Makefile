@@ -21,8 +21,11 @@ FLY = $(BIN)/fly
 
 $(shell mkdir -p $(LOGS) $(BIN))
 
+# Collects all pipelines under the pipeline directory
+ALL_PIPELINES = $(foreach pipeline,$(wildcard $(PIPELINES)/*),$(shell echo $(pipeline) | sed 's/.*_//'))
+
 # Environment variables
-export PATH := $(SCRIPTS):$(SUBMODULES)/bash-logger:$(PATH)
+export PATH := ./$(BIN):./$(SCRIPTS):$(SUBMODULES)/bash-logger:$(PATH)
 export LOGFILE := $(LOGS)/$(shell date '+%Y-%m-%d').log
 
 # Get OS and Processor type
@@ -62,8 +65,6 @@ endif
 # 
 .PHONY: *
 
-# Tasks
-
 keys:
 	$(SCRIPTS)/keygen.sh $(KEYS)
 # keys
@@ -95,20 +96,15 @@ login: fly
 
 # Pipelines
 
-define run
-	@echo "Running pipeline: $(1)"
-	$(FLY) -t $(TARGET) set-pipeline -n -p $(1) -c $(PIPELINES)/$(2)/concourse.yml
-	$(FLY) -t $(TARGET) unpause-pipeline -p $(1)
-endef
+list-pipelines:
+	@for pipeline in $(ALL_PIPELINES); do echo $$pipeline; done
+# list pipelines
 
-pipelines: hello-world navi
+pipelines: $(ALL_PIPELINES)
 
-hello-world: login
-	$(call run,hello-world,00_hello-world)
-# hello_world
-
-navi: login
-	$(call run,navi,01_navi)
-# navi
+%: login
+	@echo "Running pipeline: %"
+	$(SCRIPTS)/run-pipeline.sh -t $(TARGET) -s $(PIPELINES) $(@)
+# %
 
 # Makefile
