@@ -2,6 +2,8 @@
 # Project commands
 ##
 
+## Variables
+
 # Project variables
 TARGET = lite
 URL = http://localhost:8080
@@ -12,17 +14,10 @@ LOGS = logs
 SCRIPTS = scripts
 PIPELINES = pipelines
 SUBMODULES = .submodules
-
-COMPOSE_FILE = $(SUBMODULES)/concourse-docker/docker-compose.yml
 KEYS = $(SUBMODULES)/concourse-docker/keys
 
-# Executables
 FLY = $(BIN)/fly
-
-$(shell mkdir -p $(LOGS) $(BIN))
-
-# Collects all pipelines under the pipeline directory
-ALL_PIPELINES = $(foreach pipeline,$(wildcard $(PIPELINES)/*),$(shell echo $(pipeline) | sed 's/.*_//'))
+COMPOSE_FILE = $(SUBMODULES)/concourse-docker/docker-compose.yml
 
 # Environment variables
 export PATH := ./$(BIN):./$(SCRIPTS):$(SUBMODULES)/bash-logger:$(PATH)
@@ -62,27 +57,57 @@ else
 	endif
 endif
 
-# 
+
+### 
+# Sets up the needed directories that are ignored
+##
+$(shell mkdir -p $(LOGS) $(BIN))
+
+# Collects all pipelines under the pipeline directory
+ALL_PIPELINES = $(foreach pipeline,$(wildcard $(PIPELINES)/*),$(shell echo $(pipeline) | sed 's/.*_//'))
+
+## Tasks
+
 .PHONY: *
 
+###
+# Generates the keys needed by the docker containers
+##
 keys:
 	$(SCRIPTS)/keygen.sh $(KEYS)
 # keys
 
+###
+# Starts the docker containers
+##
 start: keys
 	env CONCOURSE_NO_REALLY_I_DONT_WANT_ANY_AUTH=true docker-compose -f $(COMPOSE_FILE) up -d
 # start
 
+###
+# Stops the docker containers
+##
 stop:
 	docker-compose -f $(COMPOSE_FILE) stop
 # stop
 
+###
+# Destroys the docker containers and the keys associated
+##
 destroy: stop
 	docker-compose -f $(COMPOSE_FILE) rm
 
 	$(SCRIPTS)/keydegen.sh $(KEYS)
 # destroy
 
+###
+# Downloads the fly binary from $(URL) to communicate with concourse
+#
+# Notes:
+#  - Fly requires the version to match that of the concourse server
+#  - The file is dumped into $(FLY)
+#  - The function attempts to determine the OS and Processor Architecure
+##
 fly:
 ifeq (,$(wildcard $(FLY)))
 	wget -O $(FLY) "$(URL)/api/v1/cli?arch=$(PROCESSOR)&platform=$(OS)"
@@ -90,18 +115,30 @@ endif
 	@chmod +x $(FLY)
 # fly
 
+###
+# Creates a fly session under the $(TARGET) and $(URL)
+##
 login: fly
 	@$(FLY) -t $(TARGET) login -c $(URL)
 # login
 
-# Pipelines
+## Pipelines
 
+###
+# Lists all the available pipelines to run
+##
 list-pipelines:
 	@for pipeline in $(ALL_PIPELINES); do echo $$pipeline; done
 # list pipelines
 
+###
+# Runs ALL of the pipelines
+##
 pipelines: $(ALL_PIPELINES)
 
+###
+# Creates dynamic tasks foreach pipeline under the $(PIPELINES) directory
+##
 %: login
 	@echo "Running pipeline: %"
 	$(SCRIPTS)/run-pipeline.sh -t $(TARGET) -s $(PIPELINES) $(@)
