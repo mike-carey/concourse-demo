@@ -1,0 +1,28 @@
+###
+# Introduces git resources
+##
+
+resources:
+- name: source-code
+  type: git
+  source:
+    uri: https://github.com/octocat/Hello-World.git
+    branch: master
+
+jobs:
+- name: git-resource
+  plan:
+  - get: source-code
+  - task: octocat
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: czero/rootfs}
+      inputs:
+        - name: source-code
+      run:
+        path: cat
+        args: ["source-code/README"]
+
+# git-resource
