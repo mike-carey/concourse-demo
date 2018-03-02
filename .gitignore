@@ -4,6 +4,7 @@
 
 /logs/
 /bin/
+.params.yml
 
 ##
 # OS Files
