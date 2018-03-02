@@ -1,0 +1,8 @@
+###
+# Copy this file as `.params.yml` and fill in the values
+##
+
+# The message to echo
+message:
+
+# parameters
