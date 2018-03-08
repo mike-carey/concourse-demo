@@ -12,8 +12,8 @@ resources:
 jobs:
 - name: tasking
   plan:
-  - get: tasks
-    trigger: true
+  - aggregate:
+      - get: tasks
   - task: echo
     file: tasks/pipelines/04_tasking/tasks/echo/task.sh
     params:
