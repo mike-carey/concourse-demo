@@ -8,7 +8,6 @@ resources:
   source:
     uri: {{git_uri}}
     branch: {{git_branch}}
-    paths: pipelines/04_tasking/**
 
 jobs:
 - name: tasking
