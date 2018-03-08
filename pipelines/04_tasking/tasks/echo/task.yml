@@ -11,10 +11,13 @@ image_resource:
     repository: ubuntu
     tag: latest
 
+inputs:
+  - name: tasks
+
 params:
   message:
 
 run:
-  path: ./task.sh
+  path: tasks/pipelines/04_tasking/tasks/echo/task.sh
 
 # tasking.echo
