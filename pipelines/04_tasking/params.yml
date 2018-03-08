@@ -1,0 +1,12 @@
+###
+# Copy this file as `.params.yml` and fill in the values
+##
+
+# Github configurations
+git_uri:
+git_branch: master
+
+# The message to be echoed
+message: 
+
+# parameters

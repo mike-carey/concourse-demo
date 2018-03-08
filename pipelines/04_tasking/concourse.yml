@@ -1,0 +1,24 @@
+###
+# Demonstrates using a separate task configuration file
+##
+
+resources:
+- name: tasks
+  type: git
+  source:
+    uri: {{git_uri}}
+    branch: {{git_branch}}
+    paths: pipelines/04_tasking/**
+
+jobs:
+- name: tasking
+  plan:
+  - get: tasks
+    trigger: true
+  - task: echo
+    file: tasks/pipelines/04_tasking/tasks/echo/task.sh
+    params:
+      message: {{message}}
+
+
+# parameters
