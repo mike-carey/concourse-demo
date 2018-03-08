@@ -11,9 +11,6 @@ image_resource:
     repository: ubuntu
     tag: latest
 
-inputs:
-  - name: tasks
-
 params:
   message:
 

@@ -15,7 +15,7 @@ jobs:
   - aggregate:
       - get: tasks
   - task: echo
-    file: tasks/pipelines/04_tasking/tasks/echo/task.sh
+    file: tasks/pipelines/04_tasking/tasks/echo/task.yml
     params:
       message: {{message}}
 
