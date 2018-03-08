@@ -14,10 +14,15 @@ jobs:
   plan:
   - aggregate:
       - get: tasks
-  - task: echo
-    file: tasks/pipelines/04_tasking/tasks/echo/task.yml
+  - task: create-file
+    file: tasks/pipelines/04_tasking/tasks/cat-file/task.yml
     params:
       message: {{message}}
+      file: bar.txt
+  - task: cat-file
+    file: tasks/pipelines/04_tasking/tasks/cat-file/task.yml
+    params:
+      file: bar.txt
 
 
 # parameters

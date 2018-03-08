@@ -2,6 +2,6 @@
 
 set -eu
 
-echo $message
+cat "$file"
 
-# echo
+# cat-file

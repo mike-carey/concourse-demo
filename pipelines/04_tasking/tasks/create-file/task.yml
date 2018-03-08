@@ -14,10 +14,14 @@ image_resource:
 inputs:
   - name: tasks
 
+outputs:
+  - name: {{file}}
+
 params:
   message:
+  file: foo.txt
 
 run:
-  path: tasks/pipelines/04_tasking/tasks/echo/task.sh
+  path: tasks/pipelines/04_tasking/tasks/create-file/task.sh
 
 # tasking.echo
