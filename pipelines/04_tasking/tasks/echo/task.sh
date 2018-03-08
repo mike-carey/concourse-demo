@@ -2,6 +2,6 @@
 
 set -eu
 
-echo "$MESSAGE"
+echo $message
 
 # echo

@@ -17,7 +17,7 @@ jobs:
   - task: echo
     file: tasks/pipelines/04_tasking/tasks/echo/task.sh
     params:
-      MESSAGE: {{message}}
+      message: {{message}}
 
 
 # parameters
