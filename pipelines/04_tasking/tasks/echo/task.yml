@@ -12,7 +12,7 @@ image_resource:
     tag: latest
 
 inputs:
-  - tasks
+  - name: tasks
 
 params:
   message:
