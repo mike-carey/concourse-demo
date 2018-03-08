@@ -15,7 +15,7 @@ inputs:
   - tasks
 
 params:
-  message:
+  MESSAGE:
 
 run:
   path: ./task.sh
