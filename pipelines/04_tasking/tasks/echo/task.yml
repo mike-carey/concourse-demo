@@ -15,6 +15,6 @@ params:
   message:
 
 run:
-  path: tasks/pipelines/04_tasking/tasks/echo/task.sh
+  path: ./task.sh
 
 # tasking.echo
