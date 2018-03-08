@@ -15,6 +15,6 @@ params:
   message:
 
 run:
-  path: ./task.sh
+  path: './task.sh'
 
 # tasking.echo
