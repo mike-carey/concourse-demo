@@ -12,12 +12,12 @@ image_resource:
     tag: latest
 
 inputs:
-  - .
+  - tasks
 
 params:
   message:
 
 run:
-  path: './task.sh'
+  path: ./task.sh
 
 # tasking.echo
