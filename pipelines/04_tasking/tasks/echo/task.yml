@@ -12,13 +12,12 @@ image_resource:
     tag: latest
 
 inputs:
-  - name: {{resource}}
+  - name: tasks
 
 params:
-  resource:
   message:
 
 run:
-  path: {{resource}}/pipelines/04_tasking/tasks/echo/task.sh
+  path: tasks/pipelines/04_tasking/tasks/echo/task.sh
 
 # tasking.echo
