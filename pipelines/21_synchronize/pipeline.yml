@@ -21,7 +21,7 @@ resources:
     interval: 10m
 
 jobs:
-  - name: Synchronize fork
+  - name: Synchronize mirror
     plan:
       - aggregate:
           - get: schedule
