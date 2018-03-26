@@ -48,7 +48,7 @@ if [ -f "$DIRECTORY"/params.yml ]; then
     LOAD_VARS="-l \"$DIRECTORY\"/.params.yml"
 fi
 
-RUN_CMD="fly -t \"$TARGET\" set-pipeline -n -p \"$PIPELINE\" -c \"$DIRECTORY\"/concourse.yml $LOAD_VARS"
+RUN_CMD="fly -t \"$TARGET\" set-pipeline -n -p \"$PIPELINE\" -c \"$DIRECTORY\"/pipeline.yml $LOAD_VARS"
 
 INFO "Running pipeline: $PIPELINE"
 INFO "Command: $RUN_CMD"
