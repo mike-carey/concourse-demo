@@ -3,10 +3,12 @@
 ##
 
 # Github configurations
-git_original_uri: 
+git_original_uri:
 git_original_private_key:
+git_original_branch: master
 
-git_clone_uri:
-git_clone_private_key:
+git_mirror_uri:
+git_mirror_private_key:
+git_mirror_branch: master
 
 # parameters

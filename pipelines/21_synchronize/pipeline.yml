@@ -7,26 +7,26 @@ resources:
   type: git
   source:
     uri: {{git_original_uri}}
-    branch: master
+    branch: {{git_original_branch}}
     private_key: {{git_original_private_key}}
-- name: clone
+- name: mirror
   type: git
   source:
-    uri: {{git_clone_uri}}
-    branch: master
-    private_key: {{git_clone_private_key}}
+    uri: {{git_mirror_uri}}
+    branch: {{git_mirror_branch}}
+    private_key: {{git_mirror_private_key}}
 - name: schedule
   type: time
   source:
     interval: 10m
 
 jobs:
-  - name: Keep fork in sync
+  - name: Synchronize fork
     plan:
       - aggregate:
           - get: schedule
             trigger: true
       - get: original
-      - put: clone
+      - put: mirror
         params:
           repository: original
