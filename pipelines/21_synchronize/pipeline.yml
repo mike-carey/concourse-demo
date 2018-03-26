@@ -1,0 +1,32 @@
+###
+#
+##
+
+resources:
+- name: original
+  type: git
+  source:
+    uri: {{git_original_uri}}
+    branch: master
+    private_key: {{git_original_private_key}}
+- name: clone
+  type: git
+  source:
+    uri: {{git_clone_uri}}
+    branch: master
+    private_key: {{git_clone_private_key}}
+- name: schedule
+  type: time
+  source:
+    interval: 10m
+
+jobs:
+  - name: Keep fork in sync
+    plan:
+      - aggregate:
+          - get: schedule
+            trigger: true
+      - get: original
+      - put: clone
+        params:
+          repository: original

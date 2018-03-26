@@ -1,0 +1,12 @@
+###
+# Copy this file as `.params.yml` and fill in the values
+##
+
+# Github configurations
+git_original_uri: 
+git_original_private_key:
+
+git_clone_uri:
+git_clone_private_key:
+
+# parameters
