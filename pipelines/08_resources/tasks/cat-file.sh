@@ -1,3 +1,5 @@
 #!/bin/bash
 
-cat output/file.txt
+filename=$1
+
+cat output/$filename
