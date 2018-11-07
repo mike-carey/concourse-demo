@@ -2,7 +2,7 @@
 
 set -e
 
-source .init.sh
+source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/.init.sh
 
 declare SOURCE=./pipelines
 declare TARGET=lite

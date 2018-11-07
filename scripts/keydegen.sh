@@ -2,7 +2,7 @@
 
 set -e
 
-source .init.sh
+source "$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"/.init.sh
 
 declare DESTINATION
 
@@ -27,7 +27,7 @@ if [ -z "$DESTINATION" ]; then
 fi
 
 INFO "Destroying keys in $DESTINATION"
-rm -rf "$DESTINATION"/web 
+rm -rf "$DESTINATION"/web
 rm -rf "$DESTINATION"/worker
 
 
