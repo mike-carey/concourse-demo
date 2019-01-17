@@ -4,7 +4,7 @@ resources:
 - name: source-code
   type: git
   source:
-    repository: https://github.com/mcarey-solstice/concourse-demo.git
+    uri: https://github.com/mcarey-solstice/concourse-demo.git
     branch: master
 
 jobs:

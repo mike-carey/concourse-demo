@@ -1,0 +1,43 @@
+###
+#
+##
+
+resources:
+- name: pipeline-repo
+  type: git
+  source:
+    uri: https://github.com/mcarey-solstice/concourse-demo.git
+
+jobs:
+- name: Synchronize mirror
+  plan:
+  - get: pipeline-repo
+    trigger: true
+  - task: create-file
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu}
+      inputs:
+      - name: pipeline-repo
+      outputs:
+      - name: output
+      run:
+        path: pipeline-repo/pipelines/08_resources/tasks/create-file.sh
+        args:
+        - cat-file
+        - hello
+        - world
+  - task: cat-file
+    config:
+      platform: linux
+      image_resource:
+        type: docker-image
+        source: {repository: ubuntu}
+      inputs:
+      - name: pipeline-repo
+      - name: output
+      run:
+        path: pipeline-repo/pipelines/08_resources/tasks/cat-file.sh
+        args: [cat-file]
