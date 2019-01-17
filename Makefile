@@ -58,7 +58,7 @@ else
 endif
 
 
-### 
+###
 # Sets up the needed directories that are ignored
 ##
 $(shell mkdir -p $(LOGS) $(BIN))
@@ -74,7 +74,7 @@ ALL_PIPELINES = $(foreach pipeline,$(wildcard $(PIPELINES)/*),$(shell echo $(pip
 # Generates the keys needed by the docker containers
 ##
 keys:
-	$(SCRIPTS)/keygen.sh $(KEYS)
+	docker run --rm -v $(PWD)/.submodules/concourse-docker:/srv -w /srv ubuntu:latest bash -c 'apt-get update && apt-get install -y openssh-client && ./generate-keys.sh'
 # keys
 
 ###
