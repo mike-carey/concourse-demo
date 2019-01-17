@@ -6,7 +6,7 @@
 
 # Project variables
 TARGET = lite
-URL = http://localhost:8080
+URL = http://127.0.0.1:8080
 
 # Directories
 BIN = bin
@@ -16,11 +16,12 @@ PIPELINES = pipelines
 SUBMODULES = .submodules
 KEYS = $(SUBMODULES)/concourse-docker/keys
 
-FLY = $(BIN)/fly
+# FLY = $(BIN)/fly
+FLY = fly
 COMPOSE_FILE = $(SUBMODULES)/concourse-docker/docker-compose.yml
 
 # Environment variables
-export PATH := ./$(BIN):./$(SCRIPTS):$(SUBMODULES)/bash-logger:$(PATH)
+export PATH := ./$(SCRIPTS):$(SUBMODULES)/bash-logger:$(PATH)
 export LOGFILE := $(LOGS)/$(shell date '+%Y-%m-%d').log
 
 # Get OS and Processor type
@@ -139,7 +140,7 @@ pipelines: $(ALL_PIPELINES)
 ###
 # Creates dynamic tasks foreach pipeline under the $(PIPELINES) directory
 ##
-%: login
+%: #login
 	@echo "Running pipeline: %"
 	$(SCRIPTS)/run-pipeline.sh -t $(TARGET) -s $(PIPELINES) $(@)
 # %
