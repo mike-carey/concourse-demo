@@ -1,9 +1,8 @@
 #!/bin/bash
 
-PERMISSIONS=${PERMISSIONS:-644}
+set -x
 
 filename=$1
 shift
 
 echo "$@" > output/$filename
-
