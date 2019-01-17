@@ -2,6 +2,7 @@
 # Global ignores
 ##
 
+/keys/
 /logs/
 /bin/
 .params.yml

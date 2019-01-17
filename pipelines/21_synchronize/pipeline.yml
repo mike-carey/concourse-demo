@@ -6,15 +6,15 @@ resources:
 - name: original
   type: git
   source:
-    uri: {{git_original_uri}}
-    branch: {{git_original_branch}}
-    private_key: {{git_original_private_key}}
+    uri: ((git_original_uri))
+    branch: ((git_original_branch))
+    private_key: ((git_original_private_key))
 - name: mirror
   type: git
   source:
-    uri: {{git_mirror_uri}}
-    branch: {{git_mirror_branch}}
-    private_key: {{git_mirror_private_key}}
+    uri: ((git_mirror_uri))
+    branch: ((git_mirror_branch))
+    private_key: ((git_mirror_private_key))
 - name: schedule
   type: time
   source:
